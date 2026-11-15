@@ -12,7 +12,7 @@ def generate_launch_description():
         # regular Node processes a pipe, even with emulate_tty enabled, so open
         # the launcher's controlling terminal explicitly and pass it through.
         ExecuteProcess(
-            cmd=["/bin/bash", "-c", "ros2 run warehouse_bot mars_keyboard_teleop < /dev/tty"],
+            cmd=["/bin/bash", "-c", "ros2 run rover mars_keyboard_teleop < /dev/tty"],
             name="mars_keyboard_teleop",
             output="screen",
             emulate_tty=True,

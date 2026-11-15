@@ -14,13 +14,13 @@ The customer storefront is available at `http://127.0.0.1:8000/`, the separate c
 - Operator `Dropped` endpoint only succeeds after all lines were picked and the task reached `at_drop`; it deducts reserved stock and records delivery in one MongoDB transaction.
 - Administrators can permanently delete catalogue products at any time. Past order snapshots and inventory transaction records remain available.
 
-The service creates only the three location keys (`dock`, `pick`, `drop`) as `needs_owner_seed` records if absent. It never writes coordinates or overwrites an existing record. The ROS task bridge uses only the approved `warehouse_bot/maps/docking_poses.yaml` points; it does not write database poses.
+The service creates only the three location keys (`dock`, `pick`, `drop`) as `needs_owner_seed` records if absent. It never writes coordinates or overwrites an existing record. The ROS task bridge uses only the approved `rover/maps/docking_poses.yaml` points; it does not write database poses.
 
 ## Local setup
 
 Python 3.10+ and MongoDB 4.2+ configured as a replica set are required because stock reservation/confirmation spans multiple documents and uses transactions.
 
-Run `python /home/ahmed/ros2_ws/src/warehouse_robot_project/warehouse_bot/warehouse_backend/run_server.py` with the general Python environment active. The script reads `.env`, starts MongoDB if needed, initializes/elects the local replica set, starts Uvicorn, waits for the health endpoint, and opens a browser tab. The active browser receives a new tab when one is already open. MongoDB data is stored persistently in `~/.local/share/mars-warehouse/mongodb`; `MARS_MONGODB_DATABASE` selects the `mars_warehouse` database.
+Run `python /home/ahmed/ros2_ws/src/rover/rover/warehouse_backend/run_server.py` with the general Python environment active. The script reads `.env`, starts MongoDB if needed, initializes/elects the local replica set, starts Uvicorn, waits for the health endpoint, and opens a browser tab. The active browser receives a new tab when one is already open. MongoDB data is stored persistently in `~/.local/share/mars-warehouse/mongodb`; `MARS_MONGODB_DATABASE` selects the `mars_warehouse` database.
 
 Keep `.env` out of backups shared publicly and never commit real credentials. The API binds to loopback by default. For site deployment, use a private network and a TLS-terminating authenticated reverse proxy; do not expose the API, MongoDB, or ROS DDS directly to the public Internet. Production identity management, account lifecycle and audit policy remain deployment decisions.
 
@@ -50,10 +50,10 @@ The HTTP API remains a development foundation. The six-digit order ID is the sol
 
 ## Phase 5: opt-in ROS/Nav2 bridge
 
-Build the `warehouse_bot` ROS package, start the warehouse API and MongoDB, launch the rover and Nav2/localization, then run this bridge separately:
+Build the `rover` ROS package, start the warehouse API and MongoDB, launch the rover and Nav2/localization, then run this bridge separately:
 
 ```bash
-ros2 launch warehouse_bot warehouse_task_bridge.launch.py enable:=true
+ros2 launch rover warehouse_task_bridge.launch.py enable:=true
 ```
 
 Set `MARS_ROBOT_API_TOKEN` and `MARS_WAREHOUSE_API_URL` in the shell before launch. The bridge reads the robot's current position from `map -> base_footprint` TF when available, but position is advisory and does not gate task claiming or Nav2 goals. It navigates only to the three coordinates in the installed `maps/docking_poses.yaml`. On restart it resumes persisted tasks. A Nav2 failure retries the same destination after a short delay. Collision Monitor and sensor freshness are handled by Nav2; they do not cancel or pause bridge goal retries. At Pick it waits for operator confirmation in the SO-101 Leader GUI (scan is skipped for this test); at Drop it waits for explicit operator confirmation there. The AMCL startup pose in `config/nav2.yaml` is set to the saved dock coordinate, so the robot must start at the dock or be given a corrected initial pose in RViz. The bridge is not included in the combined robot launch and its launch argument defaults to disabled.

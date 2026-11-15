@@ -22,7 +22,7 @@ def generate_launch_description():
             description="Private warehouse API base URL.",
         ),
         Node(
-            package="warehouse_bot",
+            package="rover",
             executable="warehouse_task_bridge",
             name="warehouse_task_bridge",
             output="screen",

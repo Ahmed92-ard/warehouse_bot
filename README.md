@@ -4,7 +4,7 @@ ROS 2 Jazzy workspace project containing the rover base, SO-101 follower arm, an
 
 ## Packages
 
-- `warehouse_bot/` — rover bringup, Nav2/SLAM configuration, maps, teleop, and warehouse task bridge
+- `rover/` — rover bringup, Nav2/SLAM configuration, maps, teleop, and warehouse task bridge
 - `so101_lerobot_follower/` — follower arm driver, camera/audio streaming, and messages
 - `so101_lerobot_leader/` — leader arm driver, GUI, camera viewer, and audio controls
 - `STARTUP_COMMANDS.txt` — launch commands only

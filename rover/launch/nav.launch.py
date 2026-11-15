@@ -6,7 +6,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
-    share = get_package_share_directory('warehouse_bot')
+    share = get_package_share_directory('rover')
     bringup = get_package_share_directory('nav2_bringup')
     return LaunchDescription([
         SetEnvironmentVariable('ROS_DOMAIN_ID', '42'),

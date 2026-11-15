@@ -49,7 +49,7 @@ class WarehouseTaskBridge(Node):
         self._last_wait_log_at = 0.0
         poses_path = str(self.get_parameter("poses_file").value)
         if not poses_path:
-            poses_path = os.path.join(get_package_share_directory("warehouse_bot"), "maps", "docking_poses.yaml")
+            poses_path = os.path.join(get_package_share_directory("rover"), "maps", "docking_poses.yaml")
         try:
             with open(poses_path, "r", encoding="utf-8") as stream:
                 data = yaml.safe_load(stream)

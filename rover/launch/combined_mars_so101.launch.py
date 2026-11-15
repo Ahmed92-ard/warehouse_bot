@@ -43,11 +43,11 @@ def generate_launch_description():
         }.items(),
     )
 
-    # Do not resolve warehouse_bot's package share in this launch description.
+    # Do not resolve rover's package share in this launch description.
     # ros2 launch can fail independently inside this child process while the
     # SO101 follower remains alive.
     mars = ExecuteProcess(
-        cmd=["ros2", "launch", "warehouse_bot", LaunchConfiguration("mars_launch_file")],
+        cmd=["ros2", "launch", "rover", LaunchConfiguration("mars_launch_file")],
         name="mars_bringup",
         output="screen",
         condition=IfCondition(LaunchConfiguration("start_mars")),
@@ -58,7 +58,7 @@ def generate_launch_description():
         DeclareLaunchArgument("start_mars", default_value="true",
                               description="Start MARS bringup in a separate process"),
         DeclareLaunchArgument("mars_launch_file", default_value="robot.launch.py",
-                              description="Launch file in warehouse_bot (for example robot.launch.py or base.launch.py)"),
+                              description="Launch file in rover (for example robot.launch.py or base.launch.py)"),
         DeclareLaunchArgument("serial_port", default_value="/dev/serial/by-id/usb-1a86_USB_Single_Serial_5B14114210-if00"),
         DeclareLaunchArgument("baud_rate", default_value="1000000"),
         DeclareLaunchArgument("control_rate_hz", default_value="50.0"),

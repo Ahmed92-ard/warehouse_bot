@@ -59,7 +59,7 @@ ros2 launch so101_lerobot_leader leader_gui.launch.py \
 
 The optional media window shows both follower cameras and plays microphone audio through the leader computer's default ALSA output. Set `audio_playback_device:=<alsa-device>` to select another output.
 
-On the Raspberry Pi, keep the current `warehouse_bot` combined bringup running for the arm and first camera, then start the second camera and USB microphone:
+On the Raspberry Pi, keep the current `rover` combined bringup running for the arm and first camera, then start the second camera and USB microphone:
 
 ```bash
 source /opt/ros/jazzy/setup.bash

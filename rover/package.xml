@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>warehouse_bot</name>
+  <name>rover</name>
   <version>0.1.0</version>
   <description>MARS rover base: ESP32 bridge (cmd_vel to wheels, encoders to odom)</description>
   <maintainer email="harshkothari.520@gmail.com">harsh</maintainer>

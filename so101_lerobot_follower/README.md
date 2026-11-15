@@ -52,7 +52,7 @@ ros2 launch so101_lerobot_follower follower.launch.py \
   enable_camera:=true
 ```
 
-If the rover is already running `warehouse_bot/combined_mars_so101.launch.py` (which starts camera 1), start camera 2 and microphone capture separately on the Pi:
+If the rover is already running `rover/combined_mars_so101.launch.py` (which starts camera 1), start camera 2 and microphone capture separately on the Pi:
 
 ```bash
 ros2 launch so101_lerobot_follower media_streamer.launch.py \

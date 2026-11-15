@@ -7,7 +7,7 @@ from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
-    share = get_package_share_directory('warehouse_bot')
+    share = get_package_share_directory('rover')
     xacro_file = os.path.join(share, 'urdf', 'mars_rover.urdf.xacro')
     robot_description = ParameterValue(Command(['xacro ', xacro_file]), value_type=str)
     self_filter_config = os.path.join(share, 'config', 'self_filter.yaml')
@@ -15,13 +15,13 @@ def generate_launch_description():
         SetEnvironmentVariable('ROS_DOMAIN_ID', '42'),
         Node(package='robot_state_publisher', executable='robot_state_publisher',
              parameters=[{'robot_description': robot_description}], output='screen'),
-        Node(package='warehouse_bot', executable='esp32_bridge',
+        Node(package='rover', executable='esp32_bridge',
              parameters=[os.path.join(share, 'config', 'base.yaml')], output='screen'),
         Node(package='rplidar_ros', executable='rplidar_composition', name='rplidar_node',
              parameters=[{'serial_port': '/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0', 'serial_baudrate': 115200,
                           'frame_id': 'lidar_link', 'angle_compensate': True}],
              output='screen'),
-        Node(package='warehouse_bot', executable='scan_to_pointcloud', name='scan_to_pointcloud',
+        Node(package='rover', executable='scan_to_pointcloud', name='scan_to_pointcloud',
              parameters=[{'input_topic': '/scan', 'output_topic': '/scan_points'}], output='screen'),
         Node(package='robot_self_filter', executable='self_filter', name='self_filter',
              parameters=[self_filter_config, {

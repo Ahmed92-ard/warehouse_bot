@@ -344,20 +344,20 @@ class CameraViewer:
                     spec = style.lookup(style_name, "font") or default_font
                 except (tk.TclError, TypeError):
                     spec = default_font
-            if not hasattr(widget, "_warehouse_bot_font"):
+            if not hasattr(widget, "_ui_base_font"):
                 try:
                     actual = tkfont.Font(root=self.root, font=spec).actual()
-                    widget._warehouse_bot_font = (
+                    widget._ui_base_font = (
                         actual["family"], max(8, abs(int(actual["size"]))),
                         actual["weight"], actual["slant"], actual["underline"],
                         actual["overstrike"],
                     )
                     wrap = widget.cget("wraplength")
-                    widget._warehouse_bot_wraplength = int(wrap) if str(wrap).isdigit() and int(wrap) > 0 else None
+                    widget._ui_base_wraplength = int(wrap) if str(wrap).isdigit() and int(wrap) > 0 else None
                 except (tk.TclError, TypeError, ValueError):
-                    widget._warehouse_bot_font = None
-                    widget._warehouse_bot_wraplength = None
-            base = getattr(widget, "_warehouse_bot_font", None)
+                    widget._ui_base_font = None
+                    widget._ui_base_wraplength = None
+            base = getattr(widget, "_ui_base_font", None)
             if base:
                 family, size, weight, slant, underline, overstrike = base
                 try:
@@ -365,7 +365,7 @@ class CameraViewer:
                     # to adapting the font to the current window dimensions.
                     widget.configure(font=(family, max(10, round(size * scale * 1.2)), weight,
                                            slant, underline, overstrike))
-                    wrap = getattr(widget, "_warehouse_bot_wraplength", None)
+                    wrap = getattr(widget, "_ui_base_wraplength", None)
                     if wrap:
                         widget.configure(wraplength=max(120, round(wrap * scale)))
                 except tk.TclError:
