@@ -1,0 +1,23 @@
+# Local secrets and runtime data
+.env
+.env.*
+!.env.example
+**/warehouse_backend/.env
+**/mongodb/
+
+# Python generated files
+__pycache__/
+*.py[cod]
+
+# ROS and build products
+build/
+install/
+log/
+*.egg-info/
+
+# Editors and operating systems
+.vscode/
+.DS_Store
+
+# Local configuration backups
+*.bak

@@ -1,0 +1,16 @@
+# Dock pose captured from `tf2_echo map base_link` at the robot's new startup
+# location. Yaw is in radians and all poses use the saved mars_rover map frame.
+frame_id: map
+poses:
+  dock:
+    x: 2.108
+    y: -0.263
+    yaw: -0.183
+  pick:
+    x: 4.888
+    y: -0.957
+    yaw: -0.016
+  drop:
+    x: -0.387
+    y: 2.513
+    yaw: 3.087

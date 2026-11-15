@@ -1,0 +1,3 @@
+#!/usr/bin/env python3
+from so101_lerobot_leader.gui import main
+main()

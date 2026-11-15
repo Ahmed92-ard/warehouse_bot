@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot name="mars_rover">
+  <!-- base_link = midpoint of the drive-wheel axle. +X = real front (lidar/wheel end) -->
+  <material name="white"><color rgba="0.95 0.95 0.95 1"/></material>
+  <material name="black"><color rgba="0.1 0.1 0.1 1"/></material>
+
+  <link name="base_footprint"/>
+  <link name="base_link">
+    <visual>
+      <origin xyz="-0.17 0 0.03" rpy="0 0 0"/>
+      <geometry><box size="0.506 0.30 0.02"/></geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/><child link="base_link"/>
+    <origin xyz="0 0 0.0504" rpy="0 0 0"/>
+  </joint>
+
+  <link name="wheel1_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0525" length="0.045"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="wheel1_joint" type="continuous">   <!-- LEFT -->
+    <parent link="base_link"/><child link="wheel1_link"/>
+    <origin xyz="0 0.19 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="wheel2_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0525" length="0.045"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="wheel2_joint" type="continuous">   <!-- RIGHT -->
+    <parent link="base_link"/><child link="wheel2_link"/>
+    <origin xyz="0 -0.19 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="lidar_link">
+    <visual>
+      <origin xyz="0 0 -0.02" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.035" length="0.04"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/><child link="lidar_link"/>
+    <origin xyz="0 0 0.1426" rpy="0 0 0.065"/>   <!-- 19.3 cm scan height, 3.7 deg mount yaw -->
+  </joint>
+</robot>

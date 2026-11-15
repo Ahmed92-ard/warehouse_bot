@@ -1,0 +1,9 @@
+esp32_bridge:
+  ros__parameters:
+    port: /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_e6471f2b7a70f0119bc993301045c30f-if00-port0
+    counts_per_rev: 5060.0      # measured: 5 turns = ~25300 counts
+    wheel_radius: 0.0504         # m   (calibrate in Task 6)
+    wheel_separation: 0.3677     # m   (calibrate in Task 6)
+    radius_trim: 0.015         # +ve = right wheel bigger (fixes left drift)
+    max_wheel_cps: 3000.0       # wheel speed limit, counts/s
+    cmd_timeout: 0.5            # s without /cmd_vel -> stop

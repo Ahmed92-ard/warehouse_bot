@@ -1,0 +1,25 @@
+self_filter:
+  ros__parameters:
+    sensor_frame: lidar_link
+    keep_organized: false
+    zero_for_removed_points: false
+    invert: false
+    min_sensor_dist: 0.01
+    default_box_scale: [1.0, 1.0, 1.0]
+    default_box_padding: [0.01, 0.01, 0.01]
+    default_cylinder_scale: [1.0, 1.0]
+    default_cylinder_padding: [0.01, 0.01]
+    self_see_links:
+      names:
+        - base_link
+        - wheel1_link
+        - wheel2_link
+        - camera_mount_pipe_link
+        - camera_link
+        - arm_base_link
+        - shoulder_link
+        - upper_arm_link
+        - lower_arm_link
+        - wrist_link
+        - gripper_link
+        - moving_jaw_so101_v1_link

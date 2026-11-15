@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#163c35">
+  <title>MARS Warehouse — Cart</title>
+  <link rel="stylesheet" href="/styles.css?v=20261110-order-history">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="MARS Warehouse home"><span class="brand-mark">M</span><span>MARS <small>WAREHOUSE</small></span></a>
+    <div class="header-actions">
+      <nav aria-label="Main navigation"><a class="nav-button" href="/">Shop</a><a class="nav-button" href="/#track">Track order</a></nav>
+      <a class="cart-jump" href="/cart/">Cart <span id="cart-count">0</span></a>
+    </div>
+  </header>
+  <main>
+    <section class="view active" aria-labelledby="cart-title">
+      <div class="section-heading"><div><p class="eyebrow">YOUR ORDER</p><h1 id="cart-title" style="font-size:42px;color:var(--forest)">Shopping cart</h1></div><a class="button secondary" href="/">Continue shopping</a></div>
+      <div id="cart-message" class="notice" role="status"></div>
+      <section class="cart-panel cart-page-panel">
+        <div class="section-heading compact"><h3>Items</h3><span id="cart-count-side" class="pill">0 items</span></div>
+        <div id="cart-lines" class="cart-lines"><p class="muted">Loading cart…</p></div>
+        <label class="field">Customer reference <span class="optional">optional</span><input id="customer-reference" maxlength="120" placeholder="Name or reference" autocomplete="off"></label>
+        <button class="button primary full" id="place-order" disabled>Place order</button>
+        <p class="fine-print">Stock is reserved when your order is accepted. Inventory is deducted after an operator confirms drop-off.</p>
+        <div id="order-result" class="order-result" aria-live="polite"></div>
+      </section>
+    </section>
+  </main>
+  <footer><span>MARS Warehouse</span><span>Shopping cart</span></footer>
+  <script src="cart.js?v=20261110-order-history" defer></script>
+</body>
+</html>

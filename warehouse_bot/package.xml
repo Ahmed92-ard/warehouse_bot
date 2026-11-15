@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>warehouse_bot</name>
+  <version>0.1.0</version>
+  <description>MARS rover base: ESP32 bridge (cmd_vel to wheels, encoders to odom)</description>
+  <maintainer email="harshkothari.520@gmail.com">harsh</maintainer>
+  <license>MIT</license>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>nav2_msgs</exec_depend>
+  <exec_depend>action_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>python3-serial</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>rplidar_ros</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>mars</exec_depend>
+  <exec_depend>sensor_msgs_py</exec_depend>
+  <exec_depend>robot_self_filter</exec_depend>
+  <exec_depend>pointcloud_to_laserscan</exec_depend>
+  <exec_depend>so101_lerobot_follower</exec_depend>
+  <exec_depend>teleop_twist_keyboard</exec_depend>
+  <export><build_type>ament_python</build_type></export>
+</package>

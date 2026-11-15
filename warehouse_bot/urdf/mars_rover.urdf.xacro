@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<robot name="mars_rover" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- The follower package owns the SO101 description macros and meshes. -->
+  <xacro:include filename="$(find so101_lerobot_follower)/description/urdf/so101_macros.xacro"/>
+  <xacro:include filename="$(find so101_lerobot_follower)/description/urdf/so101_materials.xacro"/>
+  <xacro:include filename="$(find so101_lerobot_follower)/description/so101_arm_common.xacro"/>
+  <xacro:include filename="$(find so101_lerobot_follower)/description/urdf/end_effectors/so101_ee_common.xacro"/>
+  <xacro:include filename="$(find so101_lerobot_follower)/description/urdf/end_effectors/so101_ee_follower.xacro"/>
+
+  <material name="white"><color rgba="0.95 0.95 0.95 1"/></material>
+  <material name="black"><color rgba="0.1 0.1 0.1 1"/></material>
+  <material name="camera_black"><color rgba="0.05 0.05 0.05 1"/></material>
+
+  <link name="base_footprint"/>
+  <link name="base_link">
+    <visual>
+      <!-- Keep the chassis lower face fixed; raise its top to the lidar bottom. -->
+      <origin xyz="-0.17 0 0.0713" rpy="0 0 0"/>
+      <geometry><box size="0.506 0.30 0.1026"/></geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.17 0 0.0713" rpy="0 0 0"/>
+      <geometry><box size="0.506 0.30 0.1026"/></geometry>
+    </collision>
+  </link>
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/><child link="base_link"/>
+    <origin xyz="0 0 0.0504" rpy="0 0 0"/>
+  </joint>
+
+  <link name="wheel1_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0525" length="0.045"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0525" length="0.045"/></geometry>
+    </collision>
+  </link>
+  <joint name="wheel1_joint" type="continuous">
+    <parent link="base_link"/><child link="wheel1_link"/>
+    <origin xyz="0 0.19 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="wheel2_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0525" length="0.045"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.0525" length="0.045"/></geometry>
+    </collision>
+  </link>
+  <joint name="wheel2_joint" type="continuous">
+    <parent link="base_link"/><child link="wheel2_link"/>
+    <origin xyz="0 -0.19 0" rpy="0 0 0"/><axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- No collision body on lidar_link: the scanner frame is the ray origin. -->
+  <link name="lidar_link">
+    <visual>
+      <origin xyz="0 0 -0.02" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.035" length="0.04"/></geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/><child link="lidar_link"/>
+    <origin xyz="0 0 0.1426" rpy="0 0 0.065"/>
+  </joint>
+
+  <!-- Arm starts at lidar-bottom height, 15 cm behind and 8 cm left, rotated left 90 degrees. -->
+  <xacro:so101_materials/>
+  <xacro:so101_arm_common mesh_dir="package://so101_lerobot_follower/meshes" add_transmissions="false"/>
+  <xacro:so101_ee_follower mesh_dir="package://so101_lerobot_follower/meshes" add_transmissions="false"/>
+  <joint name="arm_mount_joint" type="fixed">
+    <parent link="base_link"/><child link="arm_base_link"/>
+    <origin xyz="-0.15 0.08 0.1226" rpy="0 0 1.5708"/>
+  </joint>
+
+  <!-- Camera support is a 2 cm square post from the lidar-bottom level to the camera. -->
+  <link name="camera_mount_pipe_link">
+    <visual>
+      <geometry><box size="0.02 0.02 0.62"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry><box size="0.02 0.02 0.62"/></geometry>
+    </collision>
+  </link>
+  <joint name="camera_mount_pipe_joint" type="fixed">
+    <parent link="base_link"/><child link="camera_mount_pipe_link"/>
+    <origin xyz="-0.25 -0.10 0.4326" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Camera is 25 cm behind, 10 cm right, and 60 cm above lidar level. -->
+  <link name="camera_link">
+    <visual>
+      <geometry><box size="0.03 0.03 0.03"/></geometry>
+      <material name="camera_black"/>
+    </visual>
+    <collision>
+      <geometry><box size="0.03 0.03 0.03"/></geometry>
+    </collision>
+  </link>
+  <joint name="camera_joint" type="fixed">
+    <parent link="camera_mount_pipe_link"/><child link="camera_link"/>
+    <origin xyz="0 0 0.31" rpy="0 0 0"/>
+  </joint>
+
+  <!-- iBall rover camera: centered across the chassis, 1.5 cm inside its front edge,
+       at the chassis lower face and facing forward (+X). -->
+  <link name="rover_camera_optical_frame"/>
+  <joint name="rover_camera_joint" type="fixed">
+    <parent link="base_link"/><child link="rover_camera_optical_frame"/>
+    <!-- Chassis front edge is x=0.083 m in base_link; camera is 0.015 m inward. -->
+    <!-- The frame is at the lens, facing forward in ROS optical convention. -->
+    <origin xyz="0.068 0 -0.0304" rpy="-1.5708 0 -1.5708"/>
+  </joint>
+</robot>

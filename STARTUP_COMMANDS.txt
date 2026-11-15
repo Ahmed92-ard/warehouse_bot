@@ -1,0 +1,16 @@
+# MARS warehouse rover launch commands
+
+# Rover base, arm, cameras, lidar and sensors
+ros2 launch warehouse_bot combined_mars_so101.launch.py
+
+# Nav2
+ros2 launch warehouse_bot nav.launch.py
+
+# SO-101 leader GUI
+ros2 launch so101_lerobot_leader leader_gui.launch.py
+
+# Warehouse order bridge
+ros2 launch warehouse_bot warehouse_task_bridge.launch.py enable:=true api_url:=http://127.0.0.1:8000
+
+# Rover keyboard teleop (optional)
+ros2 launch warehouse_bot teleop.launch.py

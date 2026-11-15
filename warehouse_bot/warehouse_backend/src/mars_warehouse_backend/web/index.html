@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#163c35">
+  <title>MARS Warehouse</title>
+  <link rel="stylesheet" href="/styles.css?v=20261110-order-history">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="MARS Warehouse home"><span class="brand-mark">M</span><span>MARS <small>WAREHOUSE</small></span></a>
+    <div class="header-actions">
+      <nav aria-label="Main navigation">
+        <button class="nav-button active" data-view="shop">Shop</button>
+        <button class="nav-button" data-view="track">Track order</button>
+        <button class="nav-button" data-view="admin">Admin</button>
+      </nav>
+      <a class="cart-jump" id="cart-jump" href="/cart/">Cart <span id="cart-count">0</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy"><p class="eyebrow">WAREHOUSE ORDERING</p><h1>Good stock.<br><em>Ready to move.</em></h1><p>Browse available products, place an order, and follow its progress through delivery.</p></div>
+    </section>
+
+    <section class="view active" id="view-shop" aria-labelledby="shop-title">
+      <div class="section-heading"><div><p class="eyebrow">CATALOGUE</p><h2 id="shop-title">Available products</h2></div><button class="button secondary" id="reload-catalog">Refresh</button></div>
+      <div id="catalog-message" class="notice" role="status"></div>
+      <div id="catalog" class="product-grid"></div>
+    </section>
+
+    <section class="view" id="view-track" aria-labelledby="track-title">
+      <div class="section-heading"><div><p class="eyebrow">ORDER STATUS</p><h2 id="track-title">Track your orders</h2></div></div>
+      <div class="track-card order-history-card" aria-labelledby="your-orders-title">
+        <div class="section-heading compact"><div><p class="eyebrow">ORDER HISTORY</p><h3 id="your-orders-title">Your orders</h3></div></div>
+        <p class="muted">Select an order to expand its live status and delivery progress.</p>
+        <div id="your-orders-list" class="order-history-list" aria-live="polite"></div>
+        <p id="your-orders-empty" class="muted">Your orders will appear here as soon as you place them.</p>
+      </div>
+    </section>
+
+    <section class="view" id="view-admin" aria-labelledby="admin-title">
+      <div class="section-heading"><div><p class="eyebrow">WAREHOUSE MANAGEMENT</p><h2 id="admin-title">Inventory administration</h2></div><button class="button secondary" id="reload-admin">Refresh products</button></div>
+      <div class="admin-auth"><label class="field">Admin access key<input id="admin-token" type="password" autocomplete="off" placeholder="Enter admin access key"></label><button class="button secondary" id="save-admin-token" type="button">Sign in</button><p class="fine-print">Access is limited to authorized warehouse staff.</p></div>
+      <div class="admin-layout">
+        <form id="create-product-form" class="form-card" autocomplete="off">
+          <p class="eyebrow">NEW ITEM</p><h3>Add to catalogue</h3>
+          <label class="field">Product name<input id="product-name" required maxlength="200"></label>
+          <label class="field">Quantity<input id="product-stock" type="number" min="0" step="1" value="0" required></label>
+          <button class="button primary full">Add item</button>
+          <div id="new-product-result" aria-live="polite"></div>
+        </form>
+        <div class="inventory-panel">
+          <div class="section-heading compact"><h3>Inventory</h3><span class="muted">Item name and quantity</span></div>
+          <div class="admin-print-toolbar"><button class="button secondary" id="print-selected" disabled>Print selected QR tags</button><button class="button secondary" id="select-all" type="button">Select all</button><span id="qr-selection-status" class="muted">Select items to print a sheet.</span></div>
+          <div id="admin-message" class="notice" role="status"></div>
+          <div id="admin-products" class="admin-products"><p class="muted">Sign in to load inventory.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><span>MARS Warehouse</span><span>Order and inventory service</span></footer>
+  <dialog id="transactions-dialog"><div class="dialog-head"><h3>Inventory history</h3><button class="icon-button" id="close-transactions" aria-label="Close">×</button></div><div id="transactions-content"></div></dialog>
+  <script src="/app.js?v=20261110-order-history" defer></script>
+  <script src="/admin/admin.js" defer></script>
+</body>
+</html>
