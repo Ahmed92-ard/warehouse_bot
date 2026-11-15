@@ -128,7 +128,7 @@ def generate_launch_description():
                               description='ROS topic for Arm camera 2 used for QR scanning'),
         DeclareLaunchArgument('warehouse_api_url', default_value='http://127.0.0.1:8000',
                               description='Local warehouse API used for operator task confirmations'),
-        DeclareLaunchArgument('warehouse_env_file', default_value='/home/ahmed/ros2_ws/src/rover/rover/warehouse_backend/.env',
+        DeclareLaunchArgument('warehouse_env_file', default_value='/home/ahmed/ros2_ws/src/warehouse_bot/rover/warehouse_backend/.env',
                               description='Local environment file containing the operator API key'),
         DeclareLaunchArgument('audio_topic', default_value='/so101/follower/audio/pcm',
                               description='ROS topic for follower microphone PCM'),

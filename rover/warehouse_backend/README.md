@@ -20,7 +20,7 @@ The service creates only the three location keys (`dock`, `pick`, `drop`) as `ne
 
 Python 3.10+ and MongoDB 4.2+ configured as a replica set are required because stock reservation/confirmation spans multiple documents and uses transactions.
 
-Run `python /home/ahmed/ros2_ws/src/rover/rover/warehouse_backend/run_server.py` with the general Python environment active. The script reads `.env`, starts MongoDB if needed, initializes/elects the local replica set, starts Uvicorn, waits for the health endpoint, and opens a browser tab. The active browser receives a new tab when one is already open. MongoDB data is stored persistently in `~/.local/share/mars-warehouse/mongodb`; `MARS_MONGODB_DATABASE` selects the `mars_warehouse` database.
+Run `python /home/ahmed/ros2_ws/src/warehouse_bot/rover/warehouse_backend/run_server.py` with the general Python environment active. The script reads `.env`, starts MongoDB if needed, initializes/elects the local replica set, starts Uvicorn, waits for the health endpoint, and opens a browser tab. The active browser receives a new tab when one is already open. MongoDB data is stored persistently in `~/.local/share/mars-warehouse/mongodb`; `MARS_MONGODB_DATABASE` selects the `mars_warehouse` database.
 
 Keep `.env` out of backups shared publicly and never commit real credentials. The API binds to loopback by default. For site deployment, use a private network and a TLS-terminating authenticated reverse proxy; do not expose the API, MongoDB, or ROS DDS directly to the public Internet. Production identity management, account lifecycle and audit policy remain deployment decisions.
 

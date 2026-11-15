@@ -156,7 +156,7 @@ class LeaderNode(Node):
         self.debug = bool(self.declare_parameter("debug_logging", False).value)
         self.warehouse_api_url = str(self.declare_parameter(
             "warehouse_api_url", "http://127.0.0.1:8000").value).rstrip("/")
-        default_env = str(Path.home() / "ros2_ws/src/rover/rover/warehouse_backend/.env")
+        default_env = str(Path.home() / "ros2_ws/src/warehouse_bot/rover/warehouse_backend/.env")
         self.warehouse_env_file = Path(str(self.declare_parameter(
             "warehouse_env_file", default_env).value)).expanduser()
         self.qr_camera_topic = str(self.declare_parameter(
@@ -1069,7 +1069,7 @@ class LeaderGui:
                   style="Muted.Card.TLabel").pack(side="right")
 
     def _open_warehouse(self) -> None:
-        script = Path.home() / "ros2_ws/src/rover/rover/warehouse_backend/run_server.py"
+        script = Path.home() / "ros2_ws/src/warehouse_bot/rover/warehouse_backend/run_server.py"
         python = Path.home() / "python_envs/general/bin/python"
         if not script.is_file():
             self.status_var.set(f"Warehouse startup script not found: {script}")
