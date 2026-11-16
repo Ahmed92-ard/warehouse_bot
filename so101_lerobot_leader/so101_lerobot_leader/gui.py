@@ -729,7 +729,12 @@ class LeaderNode(Node):
         self.follower_ready = ready
         self.follower_message = description
         if self.teleop and not ready:
-            self.stop_teleop("callback=_on_diagnostics; follower readiness lost: " + description)
+            # A brief follower hardware diagnostic can flicker during motion.
+            # Keep the leader session heartbeat active; the follower's own
+            # session-loss handling and explicit Stop control remain in force.
+            self._log_diagnostic_issue(
+                "Follower diagnostic reports not ready while teleoperation remains active: " + description
+            )
         elif not ready:
             self._log_diagnostic_issue(f"follower readiness is not confirmed: {description}")
         if was_stale:
